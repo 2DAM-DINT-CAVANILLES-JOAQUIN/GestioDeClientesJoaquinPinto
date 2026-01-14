@@ -8,6 +8,7 @@ import dto.Cliente;
 import java.awt.Color;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.border.LineBorder;
 
 /**
@@ -26,6 +27,9 @@ public class DialogoAlta extends java.awt.Dialog {
         super(parent, modal);
         initComponents();
         pantallaPrincipal = (PantallaPrincipal) parent;
+
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(spinnerFechaAlta, "dd/MM/yyyy");
+        spinnerFechaAlta.setEditor(editor);
     }
 
     /**
@@ -115,22 +119,20 @@ public class DialogoAlta extends java.awt.Dialog {
             pantallaPrincipal.anadirCliente(cliente);
 
             dispose();
-        }else{
-            if(nombre.isEmpty()){
+        } else {
+            if (nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "el campo ''NOMBRE'' ES OBLIGATORIO");
                 //cambiarle el color de linea                 //cambiarle el color de linea 
 
                 //jtfNombre.setBorder(new LineBorder(Color.RED,2));
-                
-                
                 //para indicarle a que campo ir 
                 jtfNombre.requestFocus();
-                
-            }else if(apellidos.isEmpty()){
+
+            } else if (apellidos.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "el campo ''APELLIDOS'' ES OBLIGATORIO");
                 jtfApellidos.requestFocus();
             }
-            
+
         }
         //creacion del objeto
 

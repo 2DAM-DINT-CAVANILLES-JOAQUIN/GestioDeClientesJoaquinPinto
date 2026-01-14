@@ -4,6 +4,7 @@
  */
 package dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -59,6 +60,9 @@ public class Cliente {
 // Para volcar el objeto en la tabla:
 
     public String[] toArrayString() {
-        return new String[]{nombre, apellidos, fechaAlta.toString(), provincia};
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaFormateada = (fechaAlta != null) ? sdf.format(fechaAlta) : "";
+        
+        return new String[]{nombre, apellidos, fechaFormateada, provincia};
     }
 }
