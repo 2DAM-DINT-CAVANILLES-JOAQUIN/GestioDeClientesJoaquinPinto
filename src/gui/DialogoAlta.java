@@ -4,11 +4,15 @@
  */
 package gui;
 
+import java.util.Date;
+
 /**
  *
  * @author USUARIO
  */
 public class DialogoAlta extends java.awt.Dialog {
+    //referencia a padre 
+    private PantallaPrincipal pantallaPrincipal;
 
     /**
      * Creates new form DialogoAlta
@@ -16,6 +20,7 @@ public class DialogoAlta extends java.awt.Dialog {
     public DialogoAlta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        pantallaPrincipal = (PantallaPrincipal) parent;
     }
 
     /**
@@ -94,25 +99,23 @@ public class DialogoAlta extends java.awt.Dialog {
 
     private void jButtonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAltaActionPerformed
         // TODO add your handling code here:
+        String nombre = jtfNombre.getText();
+        String apellidos = jtfApellidos.getText();
+        Date fechaAlta = (Date)spinnerFechaAlta.getValue(); //casteos
+        String provincia = (String)jcbProvincia.getSelectedItem(); //casteos
+        
+        //creacion del objeto
+        
+        Cliente cliente =  new Cliente(nombre, apellidos,fechaAlta,provincia);
+        pantallaPrincipal.añadirCliente(cliente);
+        
+        dispose();
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogoAlta dialog = new DialogoAlta(new java.awt.Frame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-                
-            }
-        });
-    }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
