@@ -5,13 +5,17 @@
 package gui;
 
 import dto.Cliente;
+import java.awt.Color;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 
 /**
  *
  * @author USUARIO
  */
 public class DialogoAlta extends java.awt.Dialog {
+
     //referencia a padre 
     private PantallaPrincipal pantallaPrincipal;
 
@@ -102,22 +106,40 @@ public class DialogoAlta extends java.awt.Dialog {
         // TODO add your handling code here:
         String nombre = jtfNombre.getText();
         String apellidos = jtfApellidos.getText();
-        Date fechaAlta = (Date)spinnerFechaAlta.getValue(); //casteos
-        String provincia = (String)jcbProvincia.getSelectedItem(); //casteos
-        
+        Date fechaAlta = (Date) spinnerFechaAlta.getValue(); //casteos
+        String provincia = (String) jcbProvincia.getSelectedItem(); //casteos
+
+        //validacion de datos
+        if (!nombre.isEmpty() && !apellidos.isEmpty()) {
+            Cliente cliente = new Cliente(nombre, apellidos, fechaAlta, provincia);
+            pantallaPrincipal.anadirCliente(cliente);
+
+            dispose();
+        }else{
+            if(nombre.isEmpty()){
+                JOptionPane.showMessageDialog(this, "el campo ''NOMBRE'' ES OBLIGATORIO");
+                //cambiarle el color de linea                 //cambiarle el color de linea 
+
+                //jtfNombre.setBorder(new LineBorder(Color.RED,2));
+                
+                
+                //para indicarle a que campo ir 
+                jtfNombre.requestFocus();
+                
+            }else if(apellidos.isEmpty()){
+                JOptionPane.showMessageDialog(this, "el campo ''APELLIDOS'' ES OBLIGATORIO");
+                jtfApellidos.requestFocus();
+            }
+            
+        }
         //creacion del objeto
-        
-        Cliente cliente =  new Cliente(nombre, apellidos,fechaAlta,provincia);
-        pantallaPrincipal.anadirCliente(cliente);
-        
-        dispose();
+
+
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlta;

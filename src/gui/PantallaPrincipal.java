@@ -53,7 +53,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         Clientes.setText("Clientes");
 
-        alta.setText("ALTA ");
+        alta.setText("ALTA...");
         alta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 altaActionPerformed(evt);
