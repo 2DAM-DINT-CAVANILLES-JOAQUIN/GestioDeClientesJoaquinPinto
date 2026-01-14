@@ -83,8 +83,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void altaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaActionPerformed
         // TODO add your handling code here:
         DialogoAlta dialogoAlta = new DialogoAlta(this, true);
-        dialogoAlta.setSize(400, 300); // Dale un tamaño explícito para probar
-        dialogoAlta.setLocationRelativeTo(this); // Centrarlo
+        dialogoAlta.setSize(500, 500); // Dale un tamaño explícito para probar
+        //dialogoAlta.setLocationRelativeTo(this); // Centrarlo
         dialogoAlta.setVisible(true);
     }//GEN-LAST:event_altaActionPerformed
 

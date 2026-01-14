@@ -26,11 +26,56 @@ public class DialogoAlta extends java.awt.Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jtfNombre = new javax.swing.JTextField();
+        jtfApellidos = new javax.swing.JTextField();
+        spinnerFechaAlta = new javax.swing.JSpinner();
+        jLabel4 = new javax.swing.JLabel();
+        jcbProvincia = new javax.swing.JComboBox<>();
+        jButtonAlta = new javax.swing.JButton();
+
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
             }
         });
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("NOMBRE");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 70, 30));
+
+        jLabel2.setText("APELLIDOS");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, 30));
+
+        jLabel3.setText("FECHA DE ALTA");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 106, -1, 20));
+
+        jtfNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfNombreActionPerformed(evt);
+            }
+        });
+        add(jtfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 240, -1));
+        add(jtfApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 240, -1));
+
+        spinnerFechaAlta.setModel(new javax.swing.SpinnerDateModel());
+        add(spinnerFechaAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 240, 30));
+
+        jLabel4.setText("PROVINCIA");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 146, -1, 20));
+
+        jcbProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Asturias", "Cantabria", "Leon" }));
+        add(jcbProvincia, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 144, 240, -1));
+
+        jButtonAlta.setText("ALTA");
+        jButtonAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAltaActionPerformed(evt);
+            }
+        });
+        add(jButtonAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -42,6 +87,14 @@ public class DialogoAlta extends java.awt.Dialog {
         setVisible(false);
         dispose();
     }//GEN-LAST:event_closeDialog
+
+    private void jtfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfNombreActionPerformed
+
+    private void jButtonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAltaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAltaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -56,11 +109,21 @@ public class DialogoAlta extends java.awt.Dialog {
                     }
                 });
                 dialog.setVisible(true);
+                
             }
         });
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAlta;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JComboBox<String> jcbProvincia;
+    private javax.swing.JTextField jtfApellidos;
+    private javax.swing.JTextField jtfNombre;
+    private javax.swing.JSpinner spinnerFechaAlta;
     // End of variables declaration//GEN-END:variables
 }
