@@ -108,7 +108,7 @@ public class DialogoAlta extends java.awt.Dialog {
         //creacion del objeto
         
         Cliente cliente =  new Cliente(nombre, apellidos,fechaAlta,provincia);
-        pantallaPrincipal.añadirCliente(cliente);
+        pantallaPrincipal.anadirCliente(cliente);
         
         dispose();
     }//GEN-LAST:event_jButtonAltaActionPerformed
