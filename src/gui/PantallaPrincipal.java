@@ -14,6 +14,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -43,6 +46,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btnEliminarCliente = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        tfFiltrarNombre = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         Clientes = new javax.swing.JMenu();
         alta = new javax.swing.JMenuItem();
@@ -83,6 +88,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Filtrar por nombre de cliente:");
+
+        tfFiltrarNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfFiltrarNombreActionPerformed(evt);
+            }
+        });
+        tfFiltrarNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfFiltrarNombreKeyReleased(evt);
+            }
+        });
+
         Clientes.setText("Clientes");
 
         alta.setText("ALTA...");
@@ -101,26 +119,38 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEliminarCliente)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminarCliente))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfFiltrarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfFiltrarNombre)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEliminarCliente)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(48, Short.MAX_VALUE))
+                    .addComponent(jButton2)
+                    .addComponent(btnEliminarCliente))
+                .addContainerGap())
         );
 
         pack();
@@ -204,6 +234,23 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void tfFiltrarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFiltrarNombreActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tfFiltrarNombreActionPerformed
+
+    private void tfFiltrarNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfFiltrarNombreKeyReleased
+        // TODO add your handling code here:
+        // 1. Obtenemos el modelo de la tabla y su ordenador
+        DefaultTableModel dtm = (DefaultTableModel) clientes.getModel();
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(dtm);
+        clientes.setRowSorter(trs);
+
+        // 2. Aplicamos el filtro usando el texto que hay en el campo
+        // El "0" indica que busque en la primera columna (Nombre)
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + tfFiltrarNombre.getText(), 0));
+    }//GEN-LAST:event_tfFiltrarNombreKeyReleased
+
     private void inicializarTabla() {
         // 1. Creamos el modelo sobreescribiendo el método getColumnClass
         DefaultTableModel dtm = new DefaultTableModel() {
@@ -236,6 +283,24 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     public void anadirCliente(Cliente cliente) {
         DefaultTableModel dtm = (DefaultTableModel) clientes.getModel();
         dtm.addRow(cliente.toArrayString());
+    }
+
+    //metodo para filtrar cliente
+    private void filtrarNombre() {
+        // 1. Obtenemos el sorter de la tabla
+        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) clientes.getRowSorter();
+
+        // 2. Si el sorter no existe (porque no se inicializó), lo creamos
+        if (sorter == null) {
+            sorter = new TableRowSorter<>(clientes.getModel());
+            clientes.setRowSorter(sorter);
+        }
+
+        // 3. Aplicamos el filtro:
+        // El primer parámetro es el texto a buscar.
+        // El segundo es el índice de la columna (0 es "Nombre").
+        // (?i) hace que no importe si son mayúsculas o minúsculas.
+        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + tfFiltrarNombre.getText(), 0));
     }
 
     /**
@@ -280,7 +345,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable clientes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField tfFiltrarNombre;
     // End of variables declaration//GEN-END:variables
 }
