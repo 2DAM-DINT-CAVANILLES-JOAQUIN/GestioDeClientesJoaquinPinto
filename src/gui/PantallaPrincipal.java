@@ -205,9 +205,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void inicializarTabla() {
-        DefaultTableModel dtm = new DefaultTableModel();
+        // 1. Creamos el modelo sobreescribiendo el método getColumnClass
+        DefaultTableModel dtm = new DefaultTableModel() {
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                // Esto ayuda al ordenador a saber qué tipo de datos hay
+                if (columnIndex == 2) {
+                    return String.class;
+                }
+                return Object.class;
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Opcional: hace que la tabla no se pueda editar escribiendo encima
+            }
+        };
+
+        // 2. Configuramos las columnas
         dtm.setColumnIdentifiers(new String[]{"Nombre", "Apellidos", "Fecha Alta", "Provincia"});
-        clientes.setModel(dtm); // 'clientes' es la JTable del diseñador
+
+        // 3. Asignamos el modelo a la JTable
+        clientes.setModel(dtm);
+
+        // 4. ACTIVIDAD 5: Habilitamos la ordenación automática
+        // Al hacer clic en los encabezados los datos se ordenarán
+        clientes.setAutoCreateRowSorter(true);
     }
 
     public void anadirCliente(Cliente cliente) {
