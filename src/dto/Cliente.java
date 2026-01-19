@@ -60,9 +60,13 @@ public class Cliente {
 // Para volcar el objeto en la tabla:
 
     public String[] toArrayString() {
+        // Definimos el formato de fecha día/mes/año
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        // Validamos si la fecha existe para evitar errores de puntero nulo
         String fechaFormateada = (fechaAlta != null) ? sdf.format(fechaAlta) : "";
-        
+
+        // Retornamos el array con la información organizada
         return new String[]{nombre, apellidos, fechaFormateada, provincia};
     }
 }

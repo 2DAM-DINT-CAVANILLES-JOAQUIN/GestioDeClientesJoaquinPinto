@@ -121,10 +121,8 @@ public class DialogoAlta extends java.awt.Dialog {
             dispose();
         } else {
             if (nombre.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "el campo ''NOMBRE'' ES OBLIGATORIO");
-                //cambiarle el color de linea                 //cambiarle el color de linea 
+                JOptionPane.showMessageDialog(this, "el campo ''NOMBRE'' ES OBLIGATORIO"); 
 
-                //jtfNombre.setBorder(new LineBorder(Color.RED,2));
                 //para indicarle a que campo ir 
                 jtfNombre.requestFocus();
 
