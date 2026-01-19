@@ -6,6 +6,13 @@ package gui;
 
 import javax.swing.table.DefaultTableModel;
 import dto.Cliente;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,7 +40,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         clientes = new javax.swing.JTable();
+        btnEliminarCliente = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         Clientes = new javax.swing.JMenu();
         alta = new javax.swing.JMenuItem();
@@ -53,10 +62,24 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(clientes);
 
-        jButton1.setText("Eliminar cliente");
+        btnEliminarCliente.setText("Eliminar cliente");
+        btnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarClienteActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Cargar datos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Guardar datos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -80,15 +103,23 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jButton1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEliminarCliente)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminarCliente)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
@@ -103,39 +134,75 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         dialogoAlta.setVisible(true);
     }//GEN-LAST:event_altaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
         // TODO add your handling code here:
         // Obtenemos el modelo de la tabla
-    DefaultTableModel dtm = (DefaultTableModel) clientes.getModel();
-    
-    // Obtenemos el índice de la fila seleccionada
-    int filaSeleccionada = clientes.getSelectedRow();
-    
-    // Verificar si hay una fila seleccionada
-    if (filaSeleccionada == -1) {
-        // Si no hay selección, mostrar mensaje de advertencia
-        JOptionPane.showMessageDialog(this, 
-            "Por favor, selecciona una fila para eliminar.", 
-            "Sin selección", 
-            JOptionPane.WARNING_MESSAGE);
-    } else {
-        // Confirmación opcional
-        int confirmar = JOptionPane.showConfirmDialog(this, 
-            "¿Estás seguro de que deseas eliminar este cliente?", 
-            "Confirmar eliminación", 
-            JOptionPane.YES_NO_OPTION);
-            
-        if (confirmar == JOptionPane.YES_OPTION) {
-            // 4. Eliminar de la tabla
-            dtm.removeRow(filaSeleccionada);
-            
-            // 5. Opcional: Eliminar de tu lista lógica de objetos si la tienes
-            // listaObjetos.remove(filaSeleccionada);
-            
-            JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente.");
+        DefaultTableModel dtm = (DefaultTableModel) clientes.getModel();
+
+        // Obtenemos el índice de la fila seleccionada
+        int filaSeleccionada = clientes.getSelectedRow();
+
+        // Verificar si hay una fila seleccionada
+        if (filaSeleccionada == -1) {
+            // Si no hay selección, mostrar mensaje de advertencia
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, selecciona una fila para eliminar.",
+                    "Sin selección",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            // Confirmación opcional
+            int confirmar = JOptionPane.showConfirmDialog(this,
+                    "¿Estás seguro de que deseas eliminar este cliente?",
+                    "Confirmar eliminación",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirmar == JOptionPane.YES_OPTION) {
+                // 4. Eliminar de la tabla
+                dtm.removeRow(filaSeleccionada);
+
+                // 5. Opcional: Eliminar de tu lista lógica de objetos si la tienes
+                // listaObjetos.remove(filaSeleccionada);
+                JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente.");
+            }
         }
-    }
+    }//GEN-LAST:event_btnEliminarClienteActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) clientes.getModel();
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("clientes.dat"))) {
+            // Leemos el objeto
+            Vector dataVector = (Vector) ois.readObject();
+
+            // Limpiamos la tabla antes de cargar
+            dtm.setRowCount(0);
+
+            // Añadimos las filas una a una
+            for (Object row : dataVector) {
+                dtm.addRow((Vector) row);
+            }
+
+            JOptionPane.showMessageDialog(this, "Datos cargados correctamente.");
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "No se encontró el archivo de datos.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) clientes.getModel();
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("clientes.dat"))) {
+            // Guardamos los datos de la tabla)
+            oos.writeObject(dtm.getDataVector());
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente en clientes.dat");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void inicializarTabla() {
         DefaultTableModel dtm = new DefaultTableModel();
@@ -186,8 +253,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Clientes;
     private javax.swing.JMenuItem alta;
+    private javax.swing.JButton btnEliminarCliente;
     private javax.swing.JTable clientes;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
