@@ -6,6 +6,7 @@ package gui;
 
 import javax.swing.table.DefaultTableModel;
 import dto.Cliente;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,6 +33,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         clientes = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         Clientes = new javax.swing.JMenu();
         alta = new javax.swing.JMenuItem();
@@ -51,6 +53,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(clientes);
 
+        jButton1.setText("Eliminar cliente");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         Clientes.setText("Clientes");
 
         alta.setText("ALTA...");
@@ -69,16 +78,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jButton1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -91,6 +102,40 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         //dialogoAlta.setLocationRelativeTo(this); // Centrarlo
         dialogoAlta.setVisible(true);
     }//GEN-LAST:event_altaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        // Obtenemos el modelo de la tabla
+    DefaultTableModel dtm = (DefaultTableModel) clientes.getModel();
+    
+    // Obtenemos el índice de la fila seleccionada
+    int filaSeleccionada = clientes.getSelectedRow();
+    
+    // Verificar si hay una fila seleccionada
+    if (filaSeleccionada == -1) {
+        // Si no hay selección, mostrar mensaje de advertencia
+        JOptionPane.showMessageDialog(this, 
+            "Por favor, selecciona una fila para eliminar.", 
+            "Sin selección", 
+            JOptionPane.WARNING_MESSAGE);
+    } else {
+        // Confirmación opcional
+        int confirmar = JOptionPane.showConfirmDialog(this, 
+            "¿Estás seguro de que deseas eliminar este cliente?", 
+            "Confirmar eliminación", 
+            JOptionPane.YES_NO_OPTION);
+            
+        if (confirmar == JOptionPane.YES_OPTION) {
+            // 4. Eliminar de la tabla
+            dtm.removeRow(filaSeleccionada);
+            
+            // 5. Opcional: Eliminar de tu lista lógica de objetos si la tienes
+            // listaObjetos.remove(filaSeleccionada);
+            
+            JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente.");
+        }
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void inicializarTabla() {
         DefaultTableModel dtm = new DefaultTableModel();
@@ -142,6 +187,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu Clientes;
     private javax.swing.JMenuItem alta;
     private javax.swing.JTable clientes;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
