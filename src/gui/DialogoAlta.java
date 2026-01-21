@@ -44,12 +44,16 @@ public class DialogoAlta extends java.awt.Dialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jtfNombre = new javax.swing.JTextField();
-        jtfApellidos = new javax.swing.JTextField();
+        tfEmail = new javax.swing.JTextField();
         spinnerFechaAlta = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
         jcbProvincia = new javax.swing.JComboBox<>();
         jButtonAlta = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jtfTelefono = new javax.swing.JTextField();
+        jtfApellidos2 = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(102, 102, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -79,16 +83,16 @@ public class DialogoAlta extends java.awt.Dialog {
         });
         add(jtfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 240, -1));
 
-        jtfApellidos.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
-        add(jtfApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 240, -1));
+        tfEmail.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
+        add(tfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 240, -1));
 
         spinnerFechaAlta.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
         spinnerFechaAlta.setModel(new javax.swing.SpinnerDateModel());
         add(spinnerFechaAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 260, 20));
 
         jLabel4.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
-        jLabel4.setText("PROVINCIA");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, 30));
+        jLabel4.setText("TELEFONO");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, 40));
 
         jcbProvincia.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
         jcbProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Asturias", "Cantabria", "Leon" }));
@@ -97,18 +101,32 @@ public class DialogoAlta extends java.awt.Dialog {
         jButtonAlta.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAlta.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
         jButtonAlta.setForeground(new java.awt.Color(0, 0, 0));
-        jButtonAlta.setText("ALTA");
+        jButtonAlta.setText("ALTA DE USUARIO");
         jButtonAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAltaActionPerformed(evt);
             }
         });
-        add(jButtonAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+        add(jButtonAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Monospaced", 2, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("ALTA DE USUARIO");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 400, -1));
+
+        jLabel6.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
+        jLabel6.setText("EMAIL");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, 30));
+
+        jLabel7.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
+        jLabel7.setText("PROVINCIA");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, 30));
+
+        jtfTelefono.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
+        add(jtfTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 240, -1));
+
+        jtfApellidos2.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
+        add(jtfApellidos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 240, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -128,30 +146,32 @@ public class DialogoAlta extends java.awt.Dialog {
     private void jButtonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAltaActionPerformed
         // TODO add your handling code here:
         String nombre = jtfNombre.getText();
-        String apellidos = jtfApellidos.getText();
+        String apellidos = jtfApellidos2.getText();
         Date fechaAlta = (Date) spinnerFechaAlta.getValue(); //casteos
         String provincia = (String) jcbProvincia.getSelectedItem(); //casteos
+        String email = tfEmail.getText();
+        String telefono = jtfTelefono.getText();
 
-        //validacion de datos
-        if (!nombre.isEmpty() && !apellidos.isEmpty()) {
-            Cliente cliente = new Cliente(nombre, apellidos, fechaAlta, provincia);
-            pantallaPrincipal.anadirCliente(cliente);
-
-            dispose();
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo 'NOMBRE' es obligatorio");
+            jtfNombre.requestFocus();
+        } else if (apellidos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo 'APELLIDOS' es obligatorio");
+            jtfApellidos2.requestFocus();
+        } else if (!jtfTelefono.getText().matches("\\d+")) { // Validación de teléfono
+            JOptionPane.showMessageDialog(this, "El número es incorrecto, contiene caracteres");
+            jtfTelefono.requestFocus();
+        } else if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) { // Validación de email
+            JOptionPane.showMessageDialog(this, "Ingresa un email con formato válido");
+            tfEmail.requestFocus();
         } else {
-            if (nombre.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "el campo ''NOMBRE'' ES OBLIGATORIO"); 
-
-                //para indicarle a que campo ir 
-                jtfNombre.requestFocus();
-
-            } else if (apellidos.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "el campo ''APELLIDOS'' ES OBLIGATORIO");
-                jtfApellidos.requestFocus();
-            }
-
+            int telefonoCast = Integer.parseInt(telefono);
+            
+            Cliente cliente = new Cliente(nombre, apellidos, fechaAlta, provincia, email, telefonoCast); //casteamos antes de crear el objeto e ingresarlo a la tabla
+            pantallaPrincipal.anadirCliente(cliente);
+            JOptionPane.showMessageDialog(this,"Cliente dado de alta correctamente");
+            dispose();
         }
-        //creacion del objeto
 
 
     }//GEN-LAST:event_jButtonAltaActionPerformed
@@ -159,7 +179,6 @@ public class DialogoAlta extends java.awt.Dialog {
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlta;
     private javax.swing.JLabel jLabel1;
@@ -167,9 +186,13 @@ public class DialogoAlta extends java.awt.Dialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JComboBox<String> jcbProvincia;
-    private javax.swing.JTextField jtfApellidos;
+    private javax.swing.JTextField jtfApellidos2;
     private javax.swing.JTextField jtfNombre;
+    private javax.swing.JTextField jtfTelefono;
     private javax.swing.JSpinner spinnerFechaAlta;
+    private javax.swing.JTextField tfEmail;
     // End of variables declaration//GEN-END:variables
 }
