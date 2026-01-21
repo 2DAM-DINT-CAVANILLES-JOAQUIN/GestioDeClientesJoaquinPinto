@@ -49,7 +49,9 @@ public class DialogoAlta extends java.awt.Dialog {
         jLabel4 = new javax.swing.JLabel();
         jcbProvincia = new javax.swing.JComboBox<>();
         jButtonAlta = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(102, 102, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
@@ -57,39 +59,56 @@ public class DialogoAlta extends java.awt.Dialog {
         });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
         jLabel1.setText("NOMBRE");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 70, 30));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 80, 30));
 
+        jLabel2.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
         jLabel2.setText("APELLIDOS");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, 30));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 30));
 
+        jLabel3.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
         jLabel3.setText("FECHA DE ALTA");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 106, -1, 20));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, 40));
 
+        jtfNombre.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
         jtfNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfNombreActionPerformed(evt);
             }
         });
-        add(jtfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 240, -1));
-        add(jtfApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 240, -1));
+        add(jtfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 240, -1));
 
+        jtfApellidos.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
+        add(jtfApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 240, -1));
+
+        spinnerFechaAlta.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
         spinnerFechaAlta.setModel(new javax.swing.SpinnerDateModel());
-        add(spinnerFechaAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 240, 30));
+        add(spinnerFechaAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 260, 20));
 
+        jLabel4.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
         jLabel4.setText("PROVINCIA");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 146, -1, 20));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, 30));
 
+        jcbProvincia.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
         jcbProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Asturias", "Cantabria", "Leon" }));
-        add(jcbProvincia, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 144, 240, -1));
+        add(jcbProvincia, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 260, -1));
 
+        jButtonAlta.setBackground(new java.awt.Color(153, 153, 255));
+        jButtonAlta.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
+        jButtonAlta.setForeground(new java.awt.Color(0, 0, 0));
         jButtonAlta.setText("ALTA");
         jButtonAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAltaActionPerformed(evt);
             }
         });
-        add(jButtonAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+        add(jButtonAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Monospaced", 2, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("ALTA DE USUARIO");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 400, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -147,6 +166,7 @@ public class DialogoAlta extends java.awt.Dialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JComboBox<String> jcbProvincia;
     private javax.swing.JTextField jtfApellidos;
     private javax.swing.JTextField jtfNombre;
